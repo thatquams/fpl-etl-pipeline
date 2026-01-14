@@ -1,0 +1,4 @@
+.vscode
+
+fpl-data-platform/ingestion/scripts/__pycache__
+fpl-data-platform/ingestion/scripts/utils/__pycache__
