@@ -1,4 +1,5 @@
 import logging
+from airflow.sdk import Variable
 
 # Configure global logging
 
@@ -13,8 +14,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
     
-def upload_data_to_s3(data, season: int, bucket: str, output_key: str="fpl_fixtures_history_data/"):
-    
+def upload_data_to_s3(data, season: int, output_key: str, prefix: str, bucket: str=Variable.get("fpl_bucket")):
     import json
     from airflow.providers.amazon.aws.hooks.s3 import S3Hook
     
@@ -28,7 +28,7 @@ def upload_data_to_s3(data, season: int, bucket: str, output_key: str="fpl_fixtu
 
         s3.load_string(
             string_data=json.dumps(data),
-            key=f"{output_key}_{season}.json",
+            key=f"{output_key}/{season}_{prefix}.json",
             bucket_name=bucket,
             replace=True
         )

@@ -9,7 +9,7 @@ import json
 from include.fetch_players_url_ids import fetch_players_list
 from include.fetch_history_data import fetch_fpl_historical_data
 from include.utils.infer_season import infer_season, SEASONS
-
+from fpl_historical_data_dag import fpl_historical_data_dag
 
 # Infer the current FPL season dynamically
 # Used when only current-season ingestion is required
@@ -17,13 +17,13 @@ CURRENT_SEASON = infer_season()
 
 
 @dag(
-    dag_id="fpl_historical_data_dag",
-    schedule="@weekly",               # Weekly ingestion cadence
+    dag_id="events_players_teams_dag",
+    schedule="@daily",               # Daily ingestion cadence
     start_date=datetime(2026, 1, 1),   # DAG becomes active from this date
     catchup=False,                    # Prevents backfilling missed runs
     tags=["fpl", "gameweek (events)", "data_ingestion"],
 )
-def fpl_historical_data_dag():
+def events_players_teams_dag():
     """
     Main DAG definition function.
 
@@ -37,41 +37,36 @@ def fpl_historical_data_dag():
     # Prevents unnecessary failures in downstream tasks.
     check_api_status = HttpSensor(
         task_id="check_api_status",
-        endpoint=f"{CURRENT_SEASON}/{Variable.get('fixtures_endpoint')}.csv",
+        endpoint=f"{Variable.get('fpl_api_base_url')}",
         http_conn_id="fpl_api_conn",
         method="GET",
     )
 
     # Fixtures Data Ingestion Task
     @task
-    def fetch_and_upload_fixtures(season: str):
-        """
-        Fetches fixture data for a given season and uploads it to S3.
+    def fetch_gameweeks_data(endpoint: str, api_url: str=Variable.get("fpl_api_base_url")):
+        from include.fetch_teams_players_gws import fetch_teams_players_gws_data
 
-        Parameters
-        ----------
-        season : str
-            Season identifier (e.g. '2023-24')
-        """
-
-        api_url = Variable.get("historical_data_base_url")
-        endpoint = Variable.get("fixtures_endpoint")
-        bucket = Variable.get("fpl_bucket")
-
-        # Fetch fixture data from endpoint
-        data = fetch_fpl_historical_data(
+        # Fetch gameweeks data from FPL API
+        events = fetch_teams_players_gws_data(
             api_url=api_url,
-            season=season,
-            file_endpoint=endpoint,
+            endpoint=endpoint
         )
 
-        # Upload directly to S3 (no local persistence)
-        s3 = S3Hook(aws_conn_id="fpl_aws_conn")
-        key = f"fpl_fixtures_history_data/{season}_fixtures.json"
+        return events
+    
+    players_data = fetch_gameweeks_data(
+        endpoint=Variable.get("players_endpoint")
+    )
 
-        s3.load_string(
-            string_data=json.dumps(data),
-            bucket_name=bucket,
-            key=key,
-            replace=True,   # Idempotent overwrite
-        )
+    teams_data = fetch_gameweeks_data(
+        endpoint=Variable.get("teams_endpoint")
+    )
+
+    gameweeks_data = fetch_gameweeks_data(
+        endpoint=Variable.get("events_endpoint")
+    )
+
+    check_api_status >> players_data >> teams_data >> gameweeks_data
+
+events_players_teams_dag()
