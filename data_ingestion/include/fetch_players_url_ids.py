@@ -102,6 +102,3 @@ def fetch_players_list(api_url: str):
     except requests.HTTPError as e:
         logger.error(f"HTTP error occurred while accessing {api_url}: {e}")
     
-    
-# players_list = fetch_players_list("https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/", season="2018-19")
-# print(players_list)

@@ -86,15 +86,13 @@ def fetch_players_gw_stats(api_url: str, season, player_ids: list):
     
     except requests.RequestException as e:
         logger.error(f"Error accessing API at {api_url}: {e}")
+        return player_gw_data
     
     except requests.exceptions.Timeout:
         logger.error(f"Request timed out while accessing {api_url}")
     
     except requests.exceptions.HTTPError as e:
         logger.error(f"HTTP error occurred while accessing {api_url}: {e}")
+    except Exception as e:
+        logger.error(f"An unexpected error occurred: {e}")
         
-
-# players_gw_stats = fetch_players_gw_stats(
-#                                         "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/", 
-#                                         season="2018-19", player_ids=players_list)
-# print(players_gw_stats)

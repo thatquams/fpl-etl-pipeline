@@ -86,30 +86,3 @@ def fetch_fpl_historical_data(season: str, api_url: str, file_endpoint: str):
     except requests.HTTPError as e:
         logger.error(f"HTTP error occurred while accessing {api_url}: {e}")
             
-
-# USAGE
-
-
-# players_identifiers = fetch_api_endpoint_data("https://fantasy.premierleague.com/api/bootstrap-static/", "elements", get_players_infor=True)
-# print([player for player in players_identifiers if player.startswith('P')])
-
-# for player in players_identifiers:
-#     print(player if player.startswith("Petr") else "")
-
-# players_gw_stats = fetch_players_gw_stats(
-#                                         "https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/", 
-#                                         season="2018-19", player_ids= [player for player in players_identifiers if player.startswith('P')])
-# print(players_gw_stats)
-
-# print(players_gw_stats)
-# players = fetch_api_endpoint_data("https://fantasy.premierleague.com/api/bootstrap-static/", "elements", get_players_infor=False) # players data
-# events = fetch_api_endpoint_data("https://fantasy.premierleague.com/api/bootstrap-static/", "events", get_players_infor=False) # gameweeks data
-# print(events)
-# teams = fetch_api_endpoint_data("https://fantasy.premierleague.com/api/bootstrap-static/", "teams", get_players_infor=False) # teams data
-
-# players_identifiers = fetch_api_endpoint_data("https://fantasy.premierleague.com/api/bootstrap-static/", "elements", get_players_infor=True) # players folder names for player-specific endpoints
-
-
-
-# fixtures = fetch_gt_contents_endpoint_data("https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/", season="2023-24", file_endpoint="fixtures")
-# teams_history = fetch_teams_and_players_data("https://raw.githubusercontent.com/vaastav/Fantasy-Premier-League/master/data/", season="2023-24", file_endpoint="teams")

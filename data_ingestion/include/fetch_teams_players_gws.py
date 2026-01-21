@@ -1,9 +1,22 @@
+import logging
+
+# Configure global logging
+
+# Logs will include timestamp, log level, and message.
+# INFO level is suitable for pipeline execution visibility.
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+# Create a module-level logger
+logger = logging.getLogger(__name__)
+
 
 def fetch_teams_players_gws_data(api_url: str, endpoint: str):
     
-    
-    from utils.loggings import logger
     import requests
+    
 
     """
         Retrieve entity-level data from the Fantasy Premier League (FPL) public API.
@@ -61,7 +74,3 @@ def fetch_teams_players_gws_data(api_url: str, endpoint: str):
     except requests.HTTPError as e:
         logger.error(f"HTTP error occurred while accessing {api_url}: {e}")
         
-
-# players = fetch_teams_players_gws_data("https://fantasy.premierleague.com/api/bootstrap-static/", "elements") # players data
-# events = fetch_teams_players_gws_data("https://fantasy.premierleague.com/api/bootstrap-static/", "events") # gameweeks data
-# teams = fetch_teams_players_gws_data("https://fantasy.premierleague.com/api/bootstrap-static/", "teams") # teams data
