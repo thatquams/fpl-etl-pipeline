@@ -11,3 +11,5 @@ airflow.cfg
 airflow.db
 include/__pycache__/
 include/utils/__pycache__/
+dags/__pycache__/
+tests/__pycache__/
