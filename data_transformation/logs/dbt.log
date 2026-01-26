@@ -1,0 +1,32 @@
+[0m17:09:16.591422 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002332815D160>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000233256F4190>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023329EE3C50>]}
+
+
+============================== 17:09:16.600500 | 0e1eeaa2-3dd1-4cda-a153-28ff9c8edcd9 ==============================
+[0m17:09:16.600500 [info ] [MainThread]: Running with dbt=1.11.2
+[0m17:09:16.601474 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\Quams\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'indirect_selection': 'eager', 'invocation_command': 'dbt init fpl-analytics', 'use_experimental_parser': 'False', 'log_path': 'logs'}
+[0m17:09:25.303085 [debug] [MainThread]: Starter project path: C:\Users\Quams\OneDrive\Projects\fpl-data-platform\data_transformation\fpl-etl-env\Lib\site-packages\dbt\include\starter_project
+[0m17:09:25.327015 [info ] [MainThread]: 
+Your new dbt project "fpl_analytics" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m17:09:25.329653 [info ] [MainThread]: Setting up your profile.
+[0m17:09:28.444749 [debug] [MainThread]: Snowflake adapter: Setting snowflake.connector to ERROR (file logging only)
+[0m17:09:28.445356 [debug] [MainThread]: Snowflake adapter: Setting botocore to ERROR (file logging only)
+[0m17:09:28.445778 [debug] [MainThread]: Snowflake adapter: Setting boto3 to ERROR (file logging only)
+[0m17:10:25.988820 [info ] [MainThread]: Profile fpl_analytics written to C:\Users\Quams\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m17:10:25.991209 [debug] [MainThread]: Command `dbt init` succeeded at 17:10:25.991014 after 69.58 seconds
+[0m17:10:25.991772 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002332B4F2650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000023329F86B10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002332B4A2AD0>]}
+[0m17:10:25.992324 [debug] [MainThread]: Flushing usage events
+[0m17:10:27.864384 [debug] [MainThread]: An error was encountered while trying to flush usage events
